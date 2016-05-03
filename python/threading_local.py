@@ -5,6 +5,7 @@ import threading
 import random
 
 local_data = threading.local()
+local_data.value = 'MainThread'
 
 
 def worker(data):
@@ -17,7 +18,7 @@ def show_value(data):
     try:
         value = data.value
     except AttributeError:
-        print 'No Find Value %s' % threading.currentThread().getName()
+        print 'No Find Value %s\n' % threading.currentThread().getName()
     else:
         print 'value: %s' % value
 

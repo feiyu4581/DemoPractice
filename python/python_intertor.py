@@ -29,7 +29,7 @@ class MyIterator(object):
         self.end = end
         self.step = step
 
-    # 被next函数调用的时候使用
+    # 被next函数调用的时候使用?
     def __next__(self):
         print 'function call: __next__'
         if self.start >= self.end:
@@ -45,6 +45,8 @@ class MyIterator(object):
 
 myIterator = MyIterator(start=0, end=10)
 
+print next(iter(myIterator))
+
 # 会先调用类的__iter__函数，然后对返回的值调用next函数
 for x in myIterator:
     print x,
@@ -53,6 +55,7 @@ iterable_list = range(10)
 # 一个迭代器对象是一次性消耗品，一次循环后就消失殆尽了
 iterator_list = iter(iterable_list)
 
+print '\n---------copy_iterator_list----------'
 copy_iterator_list = iterator_list
 for i in iterator_list:
     print i,

@@ -1,0 +1,201 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 14px;
+    background: #eee;
+    /*width: 720px;*/
+    /*margin: 0 auto;*/
+    height: 100%;
+    color: #333333;
+}
+
+.todos-container {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+.todos-input {
+    padding: 6px;
+    width: 100%;
+    font-size: 24px;
+    border: 1px solid #999999;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+    /*border-radius: 5px;*/
+}
+
+.todos-left {
+    position: fixed;
+    display: inline-block;
+    background-color: rgb(93, 93, 92);
+    min-height: 100%;
+    width: 15%;
+}
+
+.todos-content {
+    display: inline-block;
+    margin-top: 20px;
+    margin-left: 16%;
+    width: 80%;
+}
+
+.new-folder {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 15%;
+    background: rgb(205, 214, 217);
+}
+
+.todos-folds-container {
+    list-style: none;
+    color: white;
+    font-size: 18px;
+    padding-left: 10px;
+    margin: 0;
+}
+
+.todos-folds-container > li {
+    border-bottom: 1px solid rgb(245, 236, 236);
+    padding: 15px 40px;
+}
+
+.todos-folds-container > li.active {
+    background-color: #eee;
+    color: black;
+}
+
+.new-folder > span {
+    display: block;
+    width: 32px;
+    height: 36px;
+    border: 0;
+    margin: 2px auto;
+    background: url("cross.png") no-repeat;
+    opacity: .5;
+}
+
+.new-folder:hover > span {
+    opacity: 1;
+}
+
+.todos-lists-container {
+    list-style: none;
+    padding-left: 0;
+}
+
+.todos-lists-done label {
+    text-decoration: line-through;
+}
+
+.todo-display {
+    position: relative;
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    font-size: 18px;
+    line-height: 1;
+    width: 100%;
+}
+
+.todo-display > label {
+    width: 90%;
+    display: inline-block;
+}
+
+.todo-edit {
+    position: relative;
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    padding: 10px 4px;
+    font-size: 18px;
+    line-height: 1;
+    width: 100%;
+}
+
+.todo-display:hover {
+    background-color: #ddd;
+}
+
+.todo-edit {
+    width: 100%;
+    display: none;
+}
+
+.destroy {
+    position: absolute;
+	top: 5px;
+	right: 5px;
+    background: url("destroy.png") no-repeat;
+    width: 20px;
+    height: 20px;
+	cursor: pointer;
+    display: none;
+}
+
+.todo-display:hover .destroy {
+    display: block;
+}
+
+.destroy:hover {
+    background-position: 0 -20px;
+}
+
+.editable > .todo-display {
+    display: none;
+}
+
+.editable > .todo-edit {
+    display: block;
+}
+
+.todos-footer {
+    position: fixed;
+    width: 80%;
+    height: 40px;
+    bottom: 0;
+    left: 15%;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 1%;
+    background: rgb(93, 93, 92);
+    color: white;
+}
+
+.todo-confirm, .todo-done {
+    padding: 6px;
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+    border: 1px solid #999999;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	-o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+	box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+}
+
+.todo-confirm {
+    margin-left: 10%;
+    display: none;
+}
+
+.todo-done {
+    border: 1px solid #ADA5A5;
+    color: black;
+    padding: 3px;
+}
+
+.todo-confirm:hover, .todo-done:hover {
+    color: #D2D2D2;
+}
