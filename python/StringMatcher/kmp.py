@@ -16,7 +16,7 @@ def precompute_str(seq):
 
 def match(text, pattern):
     pre_matchs = precompute_str(pattern)
-    pattern_index = 0
+    pattern_index, pattern_len = 0, len(pattern)
 
     res = []
     for index, char in enumerate(text):
@@ -25,7 +25,8 @@ def match(text, pattern):
         else:
             pattern_index = pre_matchs[pattern_index - 1]
 
-        if pattern_index == len(pattern):
-            res.append(index)
+        if pattern_index == pattern_len:
+            res.append(index - pattern_len + 1)
+            pattern_index = 0
 
     return res
