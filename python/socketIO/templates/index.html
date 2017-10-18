@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+    <body>
+        <div>Text</div>
+        <button type='button' id='button'>Button</button>
+    </body>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var socket = io.connect('http://' + document.domain + ':' + location.port + '/{{namespace}}');
+        // socket.on('connect', function() {
+            // socket.emit('my event', {data: 'I\'m connected!'});
+        // });
+
+        socket.on('message', function(msg) {
+            console.log('Received1: ' + msg)
+        })
+
+        socket.on('message2', function(msg) {
+            console.log('Received2: ' + msg)
+        })
+
+        $('#button').click(function() {
+            socket.emit('message1', 'Message');
+        })
+
+    </script>
+</html>
