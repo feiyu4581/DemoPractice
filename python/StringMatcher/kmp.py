@@ -23,7 +23,8 @@ def match(text, pattern):
         if pattern[pattern_index] == char:
             pattern_index += 1
         else:
-            pattern_index = pre_matchs[pattern_index - 1]
+            while pattern_index > 0 and pattern[pattern_index] != char:
+                pattern_index = pre_matchs[pattern_index - 1]
 
         if pattern_index == pattern_len:
             res.append(index - pattern_len + 1)
