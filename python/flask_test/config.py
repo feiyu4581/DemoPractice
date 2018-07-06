@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 
 # Flask
-DEBUG = True
+DEBUG = False
 
 # Database
 SQLALCHEMY_DATABASE_URI = 'postgresql://feiyu:fei@127.0.0.1:5432/dl'

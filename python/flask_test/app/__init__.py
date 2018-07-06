@@ -27,7 +27,7 @@ def register_api(app):
 
 def register_ext(app):
     login_manager.init_app(app)
-    session.init_app(app)
+    # session.init_app(app)
     principal.init_app(app)
 
     from app import permisson

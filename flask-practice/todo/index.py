@@ -8,8 +8,8 @@ app = Flask(__name__)
 app.config.from_object(config)
 
 
-@app.route('/')
-def hello_world():
+@app.route('/nihao/<int:id>')
+def hello_world(id=None):
     resp = make_response(render_template('main.html', name='Hello, World'))
     resp.set_cookie('UserName', 'CookieTest')
 
