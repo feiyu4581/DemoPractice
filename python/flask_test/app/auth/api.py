@@ -11,11 +11,12 @@ from app.exception import LoginError
 from app.response import MessageResponse
 from app.permisson import admin_permission
 from app.exception import MessageException
-from app.ext import db
+from app.ext import db, cache
 
 
 class UserResource(Resource):
     @login_required
+    @cache.cached(timeout=50)
     def get(self):
         return {'hello': 'fds'}
 
@@ -28,7 +29,7 @@ class UserResource(Resource):
         if user:
             raise MessageException('Repeated User')
         
-        user = User(id=1, name=name, login=login, is_active=True)
+        user = User(name=name, login=login)
         user.password = user.set_password(password)
 
         db.session.add(user)
@@ -59,6 +60,7 @@ class SessionResource(Resource):
         if login and password:
             user = User.query.filter_by(login=login).first()
             if user and user.check_password(password):
+                print '------', user.is_active
                 login_user(user)
 
                 identity_changed.send(current_app._get_current_object(),

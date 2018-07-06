@@ -5,6 +5,7 @@ from passlib.hash import pbkdf2_sha256
 from app.ext import db, login_manager
 from app.exception import SessionExpired
 from flask_login import UserMixin, AnonymousUserMixin, current_user
+from sqlalchemy.sql import expression
 
 
 users_roles = db.Table('users_role',
@@ -15,7 +16,7 @@ users_roles = db.Table('users_role',
 class Role(db.Model):
     __tablename__ = 'roles'
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer(), autoincrement=True, primary_key=True)
     name = db.Column(db.String(90), unique=True)
     description = db.Column(db.String(28))
 
@@ -26,12 +27,12 @@ class Role(db.Model):
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer(), autoincrement=True, primary_key=True)
     name = db.Column(db.String(64))
     login = db.Column(db.String(64), unique=True)
     password = db.Column(db.String(255))
 
-    is_active = db.Column(db.Boolean(), default=True)
+    is_active = db.Column(db.Boolean(), server_default=expression.text('True'), nullable=False)  # 这里使用 expression.true() 似乎不起作用
 
     roles = db.relationship(
         'Role',
