@@ -1,8 +1,10 @@
 # coding=utf-8
 from __future__ import absolute_import
 
+from app.tranlation import _
+
 class BaseResponse(dict):
-    code = 1
+    code = 0
     message = 'Successful'
 
     def __init__(self, message=None):
@@ -10,7 +12,7 @@ class BaseResponse(dict):
 
         self.update({
             'code': self.code,
-            'message': message or self.message
+            'message': message or _(self.message)
         })
 
 

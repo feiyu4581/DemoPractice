@@ -1,19 +1,27 @@
 # coding=utf-8
 from __future__ import absolute_import
 
+from app.tranlation import _
 
 class BaseException(Exception):
     status_code = 200
     code = -1
-    message = 'Error Code'
+    _message = lambda self: _('Error Code')
     kwargs = {}
+    
+    @property
+    def message(self):
+        if callable(self._message):
+            return self._message()
+
+        return self._message
 
     def __init__(self, message=None, **kwargs):
         super(BaseException, self).__init__()
 
         self.kwargs = kwargs
         if message:
-            self.message = message
+            self._message = message
 
     def to_dict(self):
         res = {
@@ -26,11 +34,11 @@ class BaseException(Exception):
 
 
 class SessionExpired(BaseException):
-    message = 'Session Expired'
+    _message = lambda self: _('Session Expired')
 
 
 class LoginError(BaseException):
-    message = 'Wrong Login/Password'
+    _message = lambda self: _('Wrong Login/Password')
 
 
 class MessageException(BaseException):
