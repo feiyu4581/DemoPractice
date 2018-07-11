@@ -73,13 +73,16 @@ class Solution:
         length = len(s)
 
         ans, left, right = 0, 0, 0
+        unique_set = set()
         while (left < length and right < length):
-            if s[right] not in s[left:right]:
+            if s[right] not in unique_set:
                 ans = max(ans, right - left + 1)
             else:
                 left = max(left + s[left:right].index(s[right]) + 1, left + 1)
 
             right += 1
+
+            unique_set = set(s[left:right])
 
         return ans
 
