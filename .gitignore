@@ -155,3 +155,4 @@ ENV/
 # Rope project settings
 .ropeproject
 
+.vscode/
