@@ -13,19 +13,14 @@ class Solution:
         :rtype: TreeNode
         """
         def build(pres, ins):
-            if len(pres) != len(ins) or len(pres) == 0:
+            if not pres or not ins:
                 return None
 
-            root = TreeNode(pres[0])
-            mid = None
-            for index in range(0, len(pres)):
-                if ins[index] == root.val:
-                    mid = index
-                    break
+            root = TreeNode(pres.pop(0))
+            index = ins.index(root.val)
 
-            if not mid is None:
-                root.left = build(pres[1:mid + 1], ins[:mid])
-                root.right = build(pres[mid+1:], ins[mid+1:])
+            root.left = build(pres, ins[:index])
+            root.right = build(pres, ins[index+1:])
 
             return root
 
