@@ -92,7 +92,7 @@ class Stack(object):
             elif unit == '(':
                 # 当存在一个 ( ) 的时候，自动开启一个子计算，将 括号内的数据单独计算后的结果插入栈汇总
                 nums = collect_nums(nums)
-                index = Stack.sub_compute(expression, index + 1, operator_stacks, num_stacks)
+                index = Stack.sub_compute(expression, index + 1, num_stacks=num_stacks)
             elif unit == ')':
                 # 遇到 ) 的时候表示一个子计算已经完成了，此时返回新的位置
                 nums = collect_nums(nums)
