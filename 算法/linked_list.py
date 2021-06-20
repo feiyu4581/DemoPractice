@@ -28,6 +28,7 @@ class LinkedList(object):
     def __init__(self):
         self.header = Node(None)
         self.tail = self.header
+        self.size = 0
 
     def get_header(self):
         return self.header.next
@@ -50,6 +51,7 @@ class LinkedList(object):
         node.previous, self.tail.next = self.tail, node
         self.tail = node
 
+        self.size += 1
         return self.tail
 
     def insert_before(self, node, val):
@@ -62,6 +64,10 @@ class LinkedList(object):
         node.previous.next = new_node
         node.previous = new_node
 
+        if node is self.get_header():
+            self.header.next = new_node
+
+        self.size += 1
         return new_node
 
     def insert_after(self, node, val):
@@ -77,6 +83,7 @@ class LinkedList(object):
             self.tail = new_node
 
         node.next = new_node
+        self.size += 1
         return new_node
 
     def remove(self, node):
@@ -85,17 +92,26 @@ class LinkedList(object):
         else:
             self.tail = node.previous
 
+        if node is self.get_header():
+            self.header.next = node.next
+
         node.previous.next = node.next
         del node
+
+        self.size -= 1
 
     def pop(self):
         if self.header is self.tail:
             raise KeyError('Empty List')
 
         node = self.tail
+        if self.get_header() is node:
+            self.header.next = None
+
         self.tail = node.previous
         self.tail.next = None
 
+        self.size -= 1
         return node
 
     def show(self):
@@ -105,7 +121,7 @@ class LinkedList(object):
             nodes.append(current.val)
             current = current.next
 
-        print(f'nodes={nodes}, header={self.get_header().val}, tail={self.tail.val}')
+        print(f'nodes={nodes}, header={self.get_header().val}, tail={self.tail.val}, size={self.size}')
 
     def reverse(self):
         """
@@ -278,5 +294,5 @@ class LinkedList(object):
 
 
 if __name__ == "__main__":
-    # LinkedList.test()
+    LinkedList.test()
     LinkedList.test2()
