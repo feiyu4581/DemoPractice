@@ -5,7 +5,8 @@ import random
 # from select_sort import sort
 # from merge_sort import sort
 # from quick_sort import sort, choose_k_nums
-from bucket_sort import sort
+# from bucket_sort import sort
+from counting_sort import sort
 
 ok = True
 for i in range(100):
