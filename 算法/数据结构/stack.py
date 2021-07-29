@@ -1,8 +1,8 @@
 class Stack(object):
-    MIN_CAPICITY = 20
+    MIN_CAPACITY = 20
 
-    def __init__(self, capicity=MIN_CAPICITY):
-        self.size = capicity
+    def __init__(self, capacity=MIN_CAPACITY):
+        self.size = capacity
         self.length = 0
         self.stacks = [None] * self.size
 
@@ -17,7 +17,7 @@ class Stack(object):
     def is_empty(self):
         return self.length == 0
 
-    def pop(self):
+    def pop(self) -> object:
         if self.is_empty():
             raise KeyError('Empty Stack')
 
@@ -51,7 +51,7 @@ class Stack(object):
                 try:
                     right_num, left_num = num_stacks.pop(), num_stacks.pop()
                 except KeyError:
-                    raise AttributeError('Unregular Formula')
+                    raise AttributeError('UnRegular Formula')
 
                 if operator == '/':
                     num = left_num / right_num
@@ -65,16 +65,16 @@ class Stack(object):
                 num_stacks.push(num)
                 handle_operator(priority)
 
-        nums = []
-        def collect_nums(nums):
+        def collect_nums(sub_nums):
             # 将收集到数据拼接起来
-            if nums:
-                num_stacks.push(float(''.join(nums)))
+            if sub_nums:
+                num_stacks.push(float(''.join(sub_nums)))
                 return []
 
-            return nums
+            return sub_nums
 
         index = start
+        nums = []
         while index < len(expression):
             unit = expression[index]
             if unit.isdigit() or unit == '.':
@@ -110,6 +110,7 @@ class Stack(object):
     @staticmethod
     def compute(expression):
         return Stack.sub_compute(expression, 0)
+
 
 if __name__ == "__main__":
     stack = Stack()

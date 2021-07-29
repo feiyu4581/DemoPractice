@@ -1,9 +1,11 @@
 import random
 
+
 class Node(object):
-    '''
+    """
     链表节点
-    '''
+    """
+
     def __init__(self, val):
         self.val = val
         self.next = None
@@ -14,18 +16,19 @@ class Node(object):
 
 
 class LinkedList(object):
-    '''
+    """
     双向链表使用，支持以下方法
     @find：查询
     @insert：插入
     @append：追加
     @remove：移除
     @pop：弹出
-    '''
+    """
 
     def __init__(self):
         self.header = Node(None)
         self.tail = self.header
+        self.size = 0
 
     def get_header(self):
         return self.header.next
@@ -44,10 +47,11 @@ class LinkedList(object):
         return None
 
     def append(self, val):
-        self.tail.next = Node(val)
-        self.tail.next.previous = self.tail
-        self.tail = self.tail.next
+        node = Node(val)
+        node.previous, self.tail.next = self.tail, node
+        self.tail = node
 
+        self.size += 1
         return self.tail
 
     def insert_before(self, node, val):
@@ -55,12 +59,15 @@ class LinkedList(object):
             raise AttributeError('Empty Node')
 
         new_node = Node(val)
-        new_node.next = node
-        new_node.previous = node.previous
+        new_node.next, new_node.previous = node, node.previous
 
         node.previous.next = new_node
         node.previous = new_node
 
+        if node is self.get_header():
+            self.header.next = new_node
+
+        self.size += 1
         return new_node
 
     def insert_after(self, node, val):
@@ -68,8 +75,7 @@ class LinkedList(object):
             raise AttributeError('Empty Node')
 
         new_node = Node(val)
-        new_node.next = node.next
-        new_node.previous = node
+        new_node.next, new_node.previous = node.next, node
 
         if node.next:
             node.next.previous = new_node
@@ -77,6 +83,7 @@ class LinkedList(object):
             self.tail = new_node
 
         node.next = new_node
+        self.size += 1
         return new_node
 
     def remove(self, node):
@@ -85,17 +92,26 @@ class LinkedList(object):
         else:
             self.tail = node.previous
 
+        if node is self.get_header():
+            self.header.next = node.next
+
         node.previous.next = node.next
         del node
+
+        self.size -= 1
 
     def pop(self):
         if self.header is self.tail:
             raise KeyError('Empty List')
 
         node = self.tail
+        if self.get_header() is node:
+            self.header.next = None
+
         self.tail = node.previous
         self.tail.next = None
 
+        self.size -= 1
         return node
 
     def show(self):
@@ -105,12 +121,12 @@ class LinkedList(object):
             nodes.append(current.val)
             current = current.next
 
-        print(f'nodes={nodes}, header={self.get_header().val}, tail={self.tail.val}')
+        print(f'nodes={nodes}, header={self.get_header().val}, tail={self.tail.val}, size={self.size}')
 
     def reverse(self):
-        '''
+        """
         链表反转
-        '''
+        """
         current = self.get_header()
         last_node = None
         while current.next:
@@ -130,9 +146,9 @@ class LinkedList(object):
         self.header.next = current
 
     def check_cycle(self):
-        '''
+        """
         环的检测
-        '''
+        """
         # 每次只前进一格
         current = self.get_header().next
         if not current.next:
@@ -159,9 +175,9 @@ class LinkedList(object):
 
     @staticmethod
     def merge(left, right):
-        '''
+        """
         有序链表合并
-        '''
+        """
         res = LinkedList()
         left_node = left.get_header()
         right_node = right.get_header()
@@ -186,9 +202,9 @@ class LinkedList(object):
         return res
 
     def unlink_reverse(self, n):
-        '''
+        """
         删除链表倒数第 n 个节点
-        '''
+        """
         def recursive_reverse(node, index):
             if node.next:
                 res_node, index = recursive_reverse(node.next, index)
@@ -204,14 +220,14 @@ class LinkedList(object):
             else:
                 return None, index
 
-        node, index = recursive_reverse(self.get_header(), 0)
-        self.remove(node)
-        return index
+        del_node, position = recursive_reverse(self.get_header(), 0)
+        self.remove(del_node)
+        return position
 
     def middle(self):
-        '''
+        """
         求链表的中间节点
-        '''
+        """
         current = self.header
         double_current = self.header
 
@@ -227,7 +243,6 @@ class LinkedList(object):
         else:
             return current.next.val
 
-
     @staticmethod
     def test():
         linked_list = LinkedList()
@@ -240,7 +255,6 @@ class LinkedList(object):
         linked_list.insert_after(node, 15)
         linked_list.insert_before(node, 25)
         linked_list.show()
-
 
     @staticmethod
     def test2():
@@ -270,15 +284,15 @@ class LinkedList(object):
         left.show()
         right.show()
 
-        merege_list = LinkedList.merge(left, right)
-        merege_list.show()
+        merge_list = LinkedList.merge(left, right)
+        merge_list.show()
 
-        print(merege_list.middle())
-        merege_list.unlink_reverse(1)
-        merege_list.show()
-        print(merege_list.middle())
+        print(merge_list.middle())
+        merge_list.unlink_reverse(1)
+        merge_list.show()
+        print(merge_list.middle())
 
 
 if __name__ == "__main__":
-    # LinkedList.test()
+    LinkedList.test()
     LinkedList.test2()
